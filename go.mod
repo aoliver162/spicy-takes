@@ -1,4 +1,4 @@
-module example.com/hot-take-generator
+module github.com/aoliver162/hot-take-generator
 
 go 1.21.1
 
