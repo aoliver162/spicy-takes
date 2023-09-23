@@ -24,14 +24,15 @@ func main() {
 func getRoot(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		fmt.Printf("got an invalid request")
-		http.NotFound(w, r)
+		w.WriteHeader(http.StatusNotFound)
+		io.WriteString(w, "<html>Custom 404 Page Here</html>\n")
 		return
 	}
 	fmt.Printf("got / request\n")
-	io.WriteString(w, "Root\n")
+	io.WriteString(w, "<html>Root Page Here</html>\n")
 }
 
 func getHello(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("got /hello request\n")
-	io.WriteString(w, "Hello, World!\n")
+	io.WriteString(w, "<html>Hello, World!</html>\n")
 }
