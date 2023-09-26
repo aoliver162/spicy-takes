@@ -35,5 +35,5 @@ func getRoot(w http.ResponseWriter, r *http.Request) {
 
 func getHello(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("got /hello request\n")
-	io.WriteString(w, "<html>Hello, World!</html>\n")
+	io.WriteString(w, "<p>Hello, World!</p>\n")
 }

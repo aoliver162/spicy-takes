@@ -9,11 +9,11 @@
 <body>
 	<h1 style="text-align: center; font-family: Impact, sans-serif;">🌶 SpicyTakes - Hot Take Generator</h1>
 	<div style="text-align: center">
-		<p>This is not the hottest take you have ever seen...</p>
-		<p>It is only a tribute.</p>
+		<p id="p1">This is not the hottest take you have ever seen...</p>
+		<p id="p2">It is only a tribute.</p>
 		<div>
-			<button>Downboat</button>
-			<button>Updoot</button>
+			<button hx-get="/hello" hx-target="#p1">Downboat</button>
+			<button hx-get="/hello" hx-target="#p2">Updoot</button>
 		</div>
 	</div>
 </body>
