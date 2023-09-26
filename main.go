@@ -9,7 +9,8 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", getRoot)
+
+	http.Handle("/", http.FileServer(http.Dir("web/")))
 	http.HandleFunc("/hello", getHello)
 
 	err := http.ListenAndServe(":8080", nil)
