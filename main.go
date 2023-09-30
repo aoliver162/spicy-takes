@@ -1,17 +1,20 @@
 package main
 
 import (
+	"database/sql"
 	"errors"
 	"fmt"
+	_ "github.com/mattn/go-sqlite3"
 	"io"
+	"log"
 	"net/http"
 	"os"
 )
 
-func main() {
+var filename string = "hw.sqlite3"
 
-	http.Handle("/", http.FileServer(http.Dir("web/")))
-	http.HandleFunc("/hello", getHello)
+func main() {
+	dbInit()
 
 	err := http.ListenAndServe(":8080", nil)
 	if errors.Is(err, http.ErrServerClosed) {
@@ -20,6 +23,22 @@ func main() {
 		fmt.Printf("error starting server: %s\n", err)
 		os.Exit(1)
 	}
+}
+
+func dbInit() {
+	os.Remove(filename)
+
+	fmt.Printf("Creating Database at %s\n", filename)
+
+	http.Handle("/", http.FileServer(http.Dir("web/")))
+	http.HandleFunc("/hello", getHello)
+
+	db, err := sql.Open("sqlite3", filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	repo := NewSQLiteRepository(db)
+	err = repo.Migrate()
 }
 
 func getRoot(w http.ResponseWriter, r *http.Request) {
